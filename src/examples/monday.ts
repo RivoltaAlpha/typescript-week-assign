@@ -1,4 +1,4 @@
-import db, { executeQuery } from "../config/database";
+import db, { executeQuery, initializeTables } from "../config/database";
 
 // User interface defining the structure of user data
 export interface TLecture {
@@ -83,7 +83,6 @@ export const Monday = async () => {
     //     { email: 'karani@gmail.com', first_name: 'josphat', last_Name: 'karani', department: 'It' },
     //     { email: 'ephantus@gmail.com', first_name: 'ephantus', last_Name: 'mwangi', department: 'It' },
     //     { email: 'mageto@gmail.com', first_name: 'stephen', last_Name: 'mageto', department: 'It' }
-
     // ])
     // console.log(`Inserted user with ID: ${lectureId}`);
 
@@ -94,6 +93,6 @@ export const Monday = async () => {
     // filterLectures('SELECT department, COUNT(*) AS num_lectures FROM lectures GROUP BY department;')
     // filterLectures('SELECT department, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department);')
     // filterLectures('SELECT first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (first_name);')
-    filterLectures('SELECT department,first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department,first_name);')
+    // filterLectures('SELECT department,first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department,first_name);')
 
 }
