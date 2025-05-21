@@ -123,7 +123,7 @@ class Database {
             //         ;
 
                 
-            // console.log('employee table data inserted successfully Tiff😎😌');
+            // console.log('employee table data inserted successfully Tiff');
 
             // create other tables as needed
             console.log('Database schema initialized successfully');
