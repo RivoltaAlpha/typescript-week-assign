@@ -54,39 +54,76 @@ class Database {
         // console.log('here')
         try {
     
-            await this.executeQuery(`
-                CREATE TABLE lectures (
-                    lecture_id SERIAL PRIMARY KEY,
-                    first_name VARCHAR(50),
-                    last_name VARCHAR(50),
-                    email VARCHAR(100) UNIQUE,
-                    department VARCHAR(100));
-                    `);
-                console.log('lecture table created or already exists');
+            // await this.executeQuery(`
+            //     CREATE TABLE lectures (
+            //         lecture_id SERIAL PRIMARY KEY,
+            //         first_name VARCHAR(50),
+            //         last_name VARCHAR(50),
+            //         email VARCHAR(100) UNIQUE,
+            //         department VARCHAR(100));
+            //         `);
+            //     console.log('lecture table created or already exists');
                 
-            await this.executeQuery(`
-                    CREATE TABLE courses (
-                course_id SERIAL PRIMARY KEY,
-                course_name VARCHAR(100),
-                course_code VARCHAR(20) UNIQUE,
-                description TEXT,
-                lecture_id INT REFERENCES lectures(lecture_id));
-               `);
-            console.log('courses table created or already exists');
+            // await this.executeQuery(`
+            //         CREATE TABLE courses (
+            //     course_id SERIAL PRIMARY KEY,
+            //     course_name VARCHAR(100),
+            //     course_code VARCHAR(20) UNIQUE,
+            //     description TEXT,
+            //     lecture_id INT REFERENCES lectures(lecture_id));
+            //    `);
+            // console.log('courses table created or already exists');
             
-            // create users table
-            await this.executeQuery(`
-                        CREATE TABLE students (
-                            student_id SERIAL PRIMARY KEY,
-                            course_id INT REFERENCES courses(course_id),
-                            first_name VARCHAR(50),
-                            last_name VARCHAR(50),
-                            email VARCHAR(100) UNIQUE,
-                            date_of_birth DATE
-            );
-                        `);
-            console.log('student table created or already exists');
+            // // create users table
+            // await this.executeQuery(`
+            //             CREATE TABLE students (
+            //                 student_id SERIAL PRIMARY KEY,
+            //                 course_id INT REFERENCES courses(course_id),
+            //                 first_name VARCHAR(50),
+            //                 last_name VARCHAR(50),
+            //                 email VARCHAR(100) UNIQUE,
+            //                 date_of_birth DATE
+            // );
+            //             `);
+            // console.log('student table created or already exists');
 
+            // create an employees table
+            // await this.executeQuery(`
+            //     DO $$
+            //     BEGIN
+            //         IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'departments') THEN
+            //             CREATE TYPE departments AS ENUM ('IT', 'Sales', 'Networking', 'Staff');
+            //         END IF;
+            //     END$$;
+            // `);
+
+            // await this.executeQuery(`
+            //     CREATE TABLE IF NOT EXISTS TyEmployees (
+            //         employee_id SERIAL PRIMARY KEY,
+            //         name VARCHAR(50),
+            //         department departments DEFAULT 'Staff',
+            //         salary NUMERIC,
+            //         email VARCHAR(100) UNIQUE
+            //     );
+            // `);
+
+            // insert values
+            // await this.executeQuery(`
+            //     INSERT INTO TyEmployees (name, department, salary, email)
+            //     VALUES
+            //         ('John Doe', 'IT', 60000, 'johndoe@email.com'),
+            //         ('Jane Smith', 'Sales', 55000, 'jane@emai.com'),
+            //         ('Alice Johnson', 'Networking', 70000, 'alice@email.com'),
+            //         ('Bob Brown', 'Staff', 50000, 'bobbyb@email.com'),
+            //         ('Charlie Black', 'IT', 65000, 'cblack@gmail.com'),
+            //         ('Diana White', 'Sales', 58000, 'dwstyles@gmail.com'),
+            //         ('Ethan Green', 'Networking', 72000, 'greenee@email.com'),
+            //         ('Fiona Blue', 'Staff', 52000, 'fblue@gmail.com')
+            //         `)
+            //         ;
+
+                
+            // console.log('employee table data inserted successfully Tiff😎😌');
 
             // create other tables as needed
             console.log('Database schema initialized successfully');
