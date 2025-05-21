@@ -37,6 +37,7 @@ class Database {
         const client = await this.pool.connect();
         try {
             const start = Date.now();
+            console.log('here query')
             const result = await client.query(text, params);
             const duration = Date.now() - start;
             console.log(`Executed query: ${text} - Duration: ${duration}ms`);
@@ -50,18 +51,42 @@ class Database {
     }
     
     async initializeTables(): Promise<void> {
+        // console.log('here')
         try {
+    
+            await this.executeQuery(`
+                CREATE TABLE lectures (
+                    lecture_id SERIAL PRIMARY KEY,
+                    first_name VARCHAR(50),
+                    last_name VARCHAR(50),
+                    email VARCHAR(100) UNIQUE,
+                    department VARCHAR(100));
+                    `);
+                console.log('lecture table created or already exists');
+                
+            await this.executeQuery(`
+                    CREATE TABLE courses (
+                course_id SERIAL PRIMARY KEY,
+                course_name VARCHAR(100),
+                course_code VARCHAR(20) UNIQUE,
+                description TEXT,
+                lecture_id INT REFERENCES lectures(lecture_id));
+               `);
+            console.log('courses table created or already exists');
+            
             // create users table
             await this.executeQuery(`
-                CREATE TABLE IF NOT EXISTS users (
-                    id SERIAL PRIMARY KEY,
-                    fname VARCHAR(50) NOT NULL,
-                    lname VARCHAR(50) NOT NULL,
-                    age INT,
-                    created_at TIMESTAMPTZ DEFAULT NOW()
-                )
-            `);
-            console.log('Users table created or already exists');
+                        CREATE TABLE students (
+                            student_id SERIAL PRIMARY KEY,
+                            course_id INT REFERENCES courses(course_id),
+                            first_name VARCHAR(50),
+                            last_name VARCHAR(50),
+                            email VARCHAR(100) UNIQUE,
+                            date_of_birth DATE
+            );
+                        `);
+            console.log('student table created or already exists');
+
 
             // create other tables as needed
             console.log('Database schema initialized successfully');
