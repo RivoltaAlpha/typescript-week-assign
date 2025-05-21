@@ -68,7 +68,8 @@ const insertMultipleUsers = async (users: TLecture[]): Promise<void> => {
     } finally {
         client.release();
     }
-}
+};
+
 
 export const Monday = async () => {
     

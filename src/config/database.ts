@@ -53,39 +53,56 @@ class Database {
     async initializeTables(): Promise<void> {
         // console.log('here')
         try {
+            await this.executeQuery(`
+                CREATE TABLE employee (
+    emp_id SERIAL PRIMARY KEY,               
+    name VARCHAR(100) NOT NULL,       
+    department VARCHAR(50),            
+    salary DECIMAL(10, 2),            
+    email VARCHAR(100) UNIQUE         
+);
+`);
+           await this.executeQuery(`
+            CREATE TABLE project (
+            project_id SERIAL PRIMARY KEY,            
+            project_name VARCHAR(100) NOT NULL,     
+            emp_id INT,                                
+            FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
+);
+            `);
     
-            await this.executeQuery(`
-                CREATE TABLE lectures (
-                    lecture_id SERIAL PRIMARY KEY,
-                    first_name VARCHAR(50),
-                    last_name VARCHAR(50),
-                    email VARCHAR(100) UNIQUE,
-                    department VARCHAR(100));
-                    `);
-                console.log('lecture table created or already exists');
+            // await this.executeQuery(`
+            //     CREATE TABLE lectures (
+            //         lecture_id SERIAL PRIMARY KEY,
+            //         first_name VARCHAR(50),
+            //         last_name VARCHAR(50),
+            //         email VARCHAR(100) UNIQUE,
+            //         department VARCHAR(100));
+            //         `);
+            //     console.log('lecture table created or already exists');
                 
-            await this.executeQuery(`
-                    CREATE TABLE courses (
-                course_id SERIAL PRIMARY KEY,
-                course_name VARCHAR(100),
-                course_code VARCHAR(20) UNIQUE,
-                description TEXT,
-                lecture_id INT REFERENCES lectures(lecture_id));
-               `);
-            console.log('courses table created or already exists');
+            // await this.executeQuery(`
+            //         CREATE TABLE courses (
+            //     course_id SERIAL PRIMARY KEY,
+            //     course_name VARCHAR(100),
+            //     course_code VARCHAR(20) UNIQUE,
+            //     description TEXT,
+            //     lecture_id INT REFERENCES lectures(lecture_id));
+            //    `);
+            // console.log('courses table created or already exists');
             
-            // create users table
-            await this.executeQuery(`
-                        CREATE TABLE students (
-                            student_id SERIAL PRIMARY KEY,
-                            course_id INT REFERENCES courses(course_id),
-                            first_name VARCHAR(50),
-                            last_name VARCHAR(50),
-                            email VARCHAR(100) UNIQUE,
-                            date_of_birth DATE
-            );
-                        `);
-            console.log('student table created or already exists');
+            // // create users table
+            // await this.executeQuery(`
+            //             CREATE TABLE students (
+            //                 student_id SERIAL PRIMARY KEY,
+            //                 course_id INT REFERENCES courses(course_id),
+            //                 first_name VARCHAR(50),
+            //                 last_name VARCHAR(50),
+            //                 email VARCHAR(100) UNIQUE,
+            //                 date_of_birth DATE
+            // );
+            //             `);
+            // console.log('student table created or already exists');
 
 
             // create other tables as needed
