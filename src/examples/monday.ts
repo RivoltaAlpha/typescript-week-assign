@@ -71,6 +71,7 @@ const insertMultipleUsers = async (users: TLecture[]): Promise<void> => {
 }
 
 export const Monday = async () => {
+    
     // user operations
 
     // 1. Create tables if it doesn't exist
