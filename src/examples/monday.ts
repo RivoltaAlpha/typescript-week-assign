@@ -9,7 +9,7 @@ export interface TLecture {
 }
 
 // Insert a single user into the database
-export const insertOneLecture = async (user: TLecture): Promise<number | undefined> => {
+const insertOneLecture = async (user: TLecture): Promise<number | undefined> => {
     try {
         const res = await executeQuery(
             'INSERT INTO lectures (first_name, last_name, email, department) VALUES ($1, $2, $3, $4) RETURNING lecture_id',
@@ -24,7 +24,7 @@ export const insertOneLecture = async (user: TLecture): Promise<number | undefin
     }
 }
 
-export const queryLectures = async ():Promise<void> => {
+const queryLectures = async ():Promise<void> => {
     try {
         const res = await executeQuery('SELECT * FROM lectures')
         console.table(res.rows)
@@ -33,7 +33,7 @@ export const queryLectures = async ():Promise<void> => {
     }
 }
 
-export const filterLectures = async (query: string, variable: any[] = []) => {
+const filterLectures = async (query: string, variable: any[] = []) => {
     try {
         const res = await executeQuery(query,variable)
         console.table(res.rows)
@@ -43,7 +43,7 @@ export const filterLectures = async (query: string, variable: any[] = []) => {
 }
 
 
-export const insertMultipleUsers = async (users: TLecture[]): Promise<void> => {
+const insertMultipleUsers = async (users: TLecture[]): Promise<void> => {
     // For multiple users, using a transaction is better
     const client = await db.getPool().connect();
     try {
@@ -68,4 +68,31 @@ export const insertMultipleUsers = async (users: TLecture[]): Promise<void> => {
     } finally {
         client.release();
     }
+}
+
+export const Monday = async () => {
+    // user operations
+
+    // 1. Create tables if it doesn't exist
+    // await initializeTables();
+
+    // 2. Insert a test user
+    // const lectureId = await insertOneLecture({ first_name: 'alex', last_Name: 'alex', email: 'amerif@gmail.com',department:'Computing' });
+    // insertMultipleUsers([
+    //     { email: 'karani@gmail.com', first_name: 'josphat', last_Name: 'karani', department: 'It' },
+    //     { email: 'ephantus@gmail.com', first_name: 'ephantus', last_Name: 'mwangi', department: 'It' },
+    //     { email: 'mageto@gmail.com', first_name: 'stephen', last_Name: 'mageto', department: 'It' }
+
+    // ])
+    // console.log(`Inserted user with ID: ${lectureId}`);
+
+    //3. Fetch lectures
+    // queryLectures()
+    // filterLectures('SELECT * FROM lectures WHERE department=$1', ['It'])
+    // filterLectures('SELECT * FROM lectures LIMIT 3')
+    // filterLectures('SELECT department, COUNT(*) AS num_lectures FROM lectures GROUP BY department;')
+    // filterLectures('SELECT department, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department);')
+    // filterLectures('SELECT first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (first_name);')
+    filterLectures('SELECT department,first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department,first_name);')
+
 }
