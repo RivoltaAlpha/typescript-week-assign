@@ -11,6 +11,14 @@ const joinsQuery = async (query: string, variable: any[] = []) => {
     }
 }
 
+const filterLectures = async (query: string, variable: any[] = []) => {
+    try {
+        const res = await executeQuery(query,variable)
+        console.table(res.rows)
+    } catch (error) {
+
+    }
+}
 
 export const Tuesday = async () => {
 
@@ -20,6 +28,12 @@ export const Tuesday = async () => {
     // full join
     // joinsQuery('SELECT s.first_name, s.last_name, c.course_name FROM enrollments e FUll OUTER JOIN courses c ON e.course_id = c.course_id; ')
     joinsQuery('SELECT c.customer_id,c.name,o.order_id,o.total_amount FROM  enrollments c FULL OUTER JOIN orders o ON c.customer_id = o.customer_id WHERE  o.customer_id IS NULL; ')
+
+
+    // sets
+        // filterLectures('SELECT department, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department);')
+    // filterLectures('SELECT first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (first_name);')
+    filterLectures('SELECT department,first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department,first_name)')
 
 
 }
