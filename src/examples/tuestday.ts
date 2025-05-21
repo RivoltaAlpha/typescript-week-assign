@@ -1,7 +1,5 @@
 import { executeQuery } from "../config/database"
 
-
-
 const joinsQuery = async (query: string, variable: any[] = []) => {
     try {
         const res = await executeQuery(query,variable)
@@ -34,7 +32,7 @@ export const Tuesday = async () => {
     // joinsQuery('SELECT c.customer_id,c.name,o.order_id,o.total_amount FROM  enrollments c FULL OUTER JOIN orders o ON c.customer_id = o.customer_id WHERE  o.customer_id IS NULL; ')
 
     // sets
-        // filterLectures('SELECT department, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department);')
+    // filterLectures('SELECT department, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department);')
     // filterLectures('SELECT first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (first_name);')
     // filterLectures('SELECT department,first_name, COUNT(*) AS total FROM lectures GROUP BY GROUPING SETS (department,first_name)')
 
