@@ -97,6 +97,18 @@ const updateEmployee = async (id: number, name: string): Promise<void> => {
 		console.error("Error updating employee:", error);
 	}
 }
+const updateProject = async (project_id: number, project_name: string): Promise<void> => {
+	try {
+		const res = await executeQuery(
+			"UPDATE project SET project_name = $1 WHERE emp_id = $2",
+			[project_name, project_id]
+		);
+		console.log(`project with project_id ${project_id} updated successfully`);
+	} catch (error) {
+		console.error("Error updating employee:", error);
+	}
+};
+//delete
 const deleteEmployee = async (id: number): Promise<void> => {
 	try {
 		const res = await executeQuery("DELETE FROM employee WHERE emp_id = $1", [
@@ -108,58 +120,78 @@ const deleteEmployee = async (id: number): Promise<void> => {
 	}
 };
 
+//set operations
+const allProjects = async (): Promise<void> => {
+	try{
+		const res = await executeQuery(
+			"SELECT project_id, project_name FROM project EXCEPT SELECT emp_id, name FROM employee ORDER BY project_id"
+		);
+		console.table(res.rows);
+	} catch (err) {
+		console.error("Error fetching all projects:", err);
+	}
+}
+//thursday-managing tables
+ 
+
 export const Wednesday = async () => {
-//first excersice- modifty table
-const employees: TEmployee[] = [
-	{
-		name: "mark",
-		department: "sales",
-		salary: 85000,
-		email: "marka@gmail.com",
-	},
-	{ name: "tyla", department: "HR", salary: 80000, email: "tyla@gmail.com" },
-	{
-		name: "collins",
-		department: "marketing",
-		salary: 90000,
-		email: "collins@gmail.com",
-	},
-	{ name: "brian", department: "IT", salary: 95000, email: "brian@gmail.com" },
-	{
-		name: "dennis",
-		department: "SCRUM MASTER",
-		salary: 980000,
-		email: "deno@gmail.com",
-	},
-];
-const projects: TProject[] = [
-	{ project_name: "Website Redesign", emp_id: 5 },
-	{ project_name: "Website Redesign", emp_id: 2 },
-	{ project_name: "Website Redesign", emp_id: 3},
-	{ project_name: "Website Redesign", emp_id: 4 },
-];
-// insertMultipleEmployee(employees);
-// insertMultipleProjects( projects);
+	//first excersice- modifty table
+	const employees: TEmployee[] = [
+		{
+			name: "mark",
+			department: "sales",
+			salary: 85000,
+			email: "marka@gmail.com",
+		},
+		{ name: "tyla", department: "HR", salary: 80000, email: "tyla@gmail.com" },
+		{
+			name: "collins",
+			department: "marketing",
+			salary: 90000,
+			email: "collins@gmail.com",
+		},
+		{
+			name: "brian",
+			department: "IT",
+			salary: 95000,
+			email: "brian@gmail.com",
+		},
+		{
+			name: "dennis",
+			department: "SCRUM MASTER",
+			salary: 980000,
+			email: "deno@gmail.com",
+		},
+	];
+	const projects: TProject[] = [
+		{ project_name: "Website Redesign", emp_id: 5 },
+		{ project_name: "Website Redesign", emp_id: 2 },
+		{ project_name: "Website Redesign", emp_id: 3 },
+		{ project_name: "Website Redesign", emp_id: 4 },
+	];
+	// insertMultipleEmployee(employees);
+	// insertMultipleProjects( projects);
+	//read
+	// queryemployees();
+	// queryProjects();
+	//update
+	// updateEmployee(15, "John");
+	// updateProject(4, "Mobile App Development");
+	//delete
+	// deleteEmployee(16);
 
-//read
-queryemployees();
-// queryProjects();
+	// set operations
+	// allProjects();
 
-//update
-// updateEmployee(15, "John");
-//delete
-// deleteEmployee(16);
+	//     SELECT FROM WHERE
+	//     subQuery('SELECT  *  FROM Employee WHERE department = (SELECT department FROM Departments WHERE deptid=1);')
+	//     subQuery('SELECT  *  FROM Employee WHERE salary < (SELECT avg(salary) from Employee)')
+	//     subQuery('SELECT  *  FROM Employee WHERE salary >=(SELECT avg(salary) from Employee);')
+	//     subQuery('SELECT  *  FROM Employee WHERE department IN (SELECT department FROM Departments);')
+	//     subQuery('SELECT  *  FROM Employee WHERE department NOT IN (SELECT department FROM Departments);')
 
-
-//     SELECT FROM WHERE
-//     subQuery('SELECT  *  FROM Employee WHERE department = (SELECT department FROM Departments WHERE deptid=1);')
-//     subQuery('SELECT  *  FROM Employee WHERE salary < (SELECT avg(salary) from Employee)')
-//     subQuery('SELECT  *  FROM Employee WHERE salary >=(SELECT avg(salary) from Employee);')
-//     subQuery('SELECT  *  FROM Employee WHERE department IN (SELECT department FROM Departments);')
-//     subQuery('SELECT  *  FROM Employee WHERE department NOT IN (SELECT department FROM Departments);')
-   
-//    Multiple
-//     subQuery('SELECT empid , name FROM Employee WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = Employee.department);')
-//     subQuery('')
-// await initializeTables();
+	//    Multiple
+	//     subQuery('SELECT empid , name FROM Employee WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = Employee.department);')
+	//     subQuery('')
+	// await initializeTables();
 }
