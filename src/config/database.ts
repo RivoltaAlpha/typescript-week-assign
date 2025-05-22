@@ -70,7 +70,7 @@ class Database {
             FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
 );
             `);
-    
+            // Monday
             // await this.executeQuery(`
             //     CREATE TABLE lectures (
             //         lecture_id SERIAL PRIMARY KEY,
@@ -104,6 +104,8 @@ class Database {
             //             `);
             // console.log('student table created or already exists');
 
+
+            // Wednesday
             // create an employees table
             // await this.executeQuery(`
             //     DO $$
