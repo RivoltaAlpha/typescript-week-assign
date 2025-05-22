@@ -11,8 +11,6 @@ export interface TProject {
 	emp_id: number;
 }
 
-import { executeQuery, initializeTables } from "../config/database"
-
 const subQuery = async (query: string, variable: any[] = []) => {
     try {
         const res = await executeQuery(query,variable)
