@@ -53,6 +53,23 @@ class Database {
     async initializeTables(): Promise<void> {
         // console.log('here')
         try {
+            await this.executeQuery(`
+                CREATE TABLE employee (
+    emp_id SERIAL PRIMARY KEY,               
+    name VARCHAR(100) NOT NULL,       
+    department VARCHAR(50),            
+    salary DECIMAL(10, 2),            
+    email VARCHAR(100) UNIQUE         
+);
+`);
+           await this.executeQuery(`
+            CREATE TABLE project (
+            project_id SERIAL PRIMARY KEY,            
+            project_name VARCHAR(100) NOT NULL,     
+            emp_id INT,                                
+            FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
+);
+            `);
     
             // await this.executeQuery(`
             //     CREATE TABLE lectures (

@@ -6,7 +6,7 @@ import { Wednesday } from './examples/wednesday';
     try {
         // Monday()
         // Tuesday()
-        Wednesday()
+        Wednesday();
 
         console.log('All operations completed successfully');
     } catch (error) {
