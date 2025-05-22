@@ -11,6 +11,7 @@ export interface TProject {
 	emp_id: number;
 }
 
+import { executeQuery, initializeTables } from "../config/database"
 
 const subQuery = async (query: string, variable: any[] = []) => {
     try {
@@ -36,6 +37,7 @@ const insertMultipleEmployee = async (employee: TEmployee[]): Promise<void> => {
 			);
 		}
 
+
 		// Commit transaction
 		await client.query("COMMIT");
 		// console.log(${ users } users inserted successfully);
@@ -54,6 +56,14 @@ const insertMultipleProjects = async (project: TProject[]): Promise<void> => {
 		// Begin transaction
 		await client.query("BEGIN");
 
+const transactions = async (query: string, variables: any[] = []) => {
+    try{
+    const res = await executeQuery(query,variables)
+        console.table(res.rows)
+    } catch(error){
+
+    }
+}
 		// Insert each user
 		for (const user of project) {
 			await client.query(
@@ -183,15 +193,15 @@ export const Wednesday = async () => {
 	// set operations
 	// allProjects();
 
-	//     SELECT FROM WHERE
-	//     subQuery('SELECT  *  FROM Employee WHERE department = (SELECT department FROM Departments WHERE deptid=1);')
-	//     subQuery('SELECT  *  FROM Employee WHERE salary < (SELECT avg(salary) from Employee)')
-	//     subQuery('SELECT  *  FROM Employee WHERE salary >=(SELECT avg(salary) from Employee);')
-	//     subQuery('SELECT  *  FROM Employee WHERE department IN (SELECT department FROM Departments);')
-	//     subQuery('SELECT  *  FROM Employee WHERE department NOT IN (SELECT department FROM Departments);')
-
-	//    Multiple
-	//     subQuery('SELECT empid , name FROM Employee WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = Employee.department);')
-	//     subQuery('')
-	// await initializeTables();
+//     SELECT FROM WHERE
+//     subQuery('SELECT  *  FROM Employee WHERE department = (SELECT department FROM Departments WHERE deptid=1);')
+//     subQuery('SELECT  *  FROM Employee WHERE salary < (SELECT avg(salary) from Employee)')
+//     subQuery('SELECT  *  FROM Employee WHERE salary >=(SELECT avg(salary) from Employee);')
+//     subQuery('SELECT  *  FROM Employee WHERE department IN (SELECT department FROM Departments);')
+//     subQuery('SELECT  *  FROM Employee WHERE department NOT IN (SELECT department FROM Departments);')
+   
+//    Multiple
+//     subQuery('SELECT empid , name FROM Employee WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = Employee.department);')
+//     subQuery('')
+// await initializeTables();
 }
