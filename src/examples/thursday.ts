@@ -1,4 +1,6 @@
 import { initializeTables, executeQuery } from "../config/database";
+import  { executeQuery } from "../config/database";
+
 //using generics for the company interface
  export interface company<T> {
         employee: T[];
@@ -44,13 +46,38 @@ import { initializeTables, executeQuery } from "../config/database";
     }
 
 
- export const thursday = async () => {
-		// 1. Create tables if it doesn't exist
-		// await initializeTables();
+const renameColumn = async () => {
+    const query = `ALTER TABLE lectures RENAME COLUMN email TO lecture_email;`;
+    await executeQuery(query);
+    console.log("Column renamed");
+};
+
+
+const checkTable = async (table:string) => {
+    const res = await executeQuery(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = ${1}
+      );
+    `,[table]);
+    console.log("Table exists:", res.rows[0].exists);
+};
+  
+const addColumn = async () => {
+    const query = `ALTER TABLE lectures ADD COLUMN salary INTEGER;`;
+    await executeQuery(query);
+    console.log("Column added");
+};
+
+export const Thursday = () => {
+  		// await initializeTables();
         // renameColumn("employee", "id", "emp_id");
         // changeDataType("employee", "salary", "INTEGER");
         // renameTable("employee", "employees");
         // await executeQuery("DROP TABLE IF EXISTS employee");
         // await executeQuery("TRUNCATE TABLE project");
-
- }
+  
+    // await addColumn()
+    // await checkTable('lectures')
+    // await renameColumn()
+}
