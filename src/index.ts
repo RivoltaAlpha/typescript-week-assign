@@ -1,4 +1,5 @@
 import { Monday } from './examples/monday';
+import { Library } from './examples/Scenario';
 import { Tuesday } from './examples/tuestday';
 import { Wednesday } from './examples/wednesday';
 
@@ -6,7 +7,8 @@ import { Wednesday } from './examples/wednesday';
     try {
         // Monday()
         // Tuesday()
-        Wednesday();
+        // Wednesday();
+         Library();
 
         console.log('All operations completed successfully');
     } catch (error) {

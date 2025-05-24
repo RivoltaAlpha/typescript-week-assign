@@ -144,7 +144,56 @@ class Database {
                 
             // console.log('employee table data inserted successfully Tiff');
 
-            // create other tables as needed
+            // Library Tables
+            await this.executeQuery(`
+                CREATE TABLE users (
+                user_id SERIAL PRIMARY KEY,
+                name VARCHAR(100),
+                role VARCHAR(20) CHECK (role IN ('member', 'librarian')),
+                email VARCHAR(100) UNIQUE,
+                password VARCHAR(100)
+            );
+
+            CREATE TABLE library_items (
+                item_id SERIAL PRIMARY KEY,
+                title VARCHAR(200),
+                year INT,
+                type VARCHAR(20) CHECK (type IN ('book', 'dvd', 'ebook'))
+            );
+
+            CREATE TABLE books (
+                book_id INT PRIMARY KEY REFERENCES library_items(item_id),
+                author VARCHAR(100),
+                isbn VARCHAR(20)
+            );
+
+            CREATE TABLE dvds (
+                dvd_id INT PRIMARY KEY REFERENCES library_items(item_id),
+                director VARCHAR(100)
+            );
+
+            CREATE TABLE ebooks (
+                ebook_id INT PRIMARY KEY REFERENCES library_items(item_id),
+                file_url VARCHAR(200)
+            );
+
+            CREATE TABLE borrow_records (
+                borrow_id SERIAL PRIMARY KEY,
+                user_id INT REFERENCES users(user_id),
+                item_id INT REFERENCES library_items(item_id),
+                borrow_date DATE,
+                due_date DATE,
+                return_date DATE
+            );
+
+            CREATE TABLE fines (
+                fine_id SERIAL PRIMARY KEY,
+                borrow_id INT REFERENCES borrow_records(borrow_id),
+                amount NUMERIC(10,2),
+                paid BOOLEAN DEFAULT FALSE
+            );
+                `)
+
             console.log('Database schema initialized successfully');
         } catch (err) {
             console.error('Error initializing database:', err);
