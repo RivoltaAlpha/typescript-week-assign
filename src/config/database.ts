@@ -53,7 +53,24 @@ class Database {
     async initializeTables(): Promise<void> {
         // console.log('here')
         try {
-    
+            await this.executeQuery(`
+                CREATE TABLE employee (
+    emp_id SERIAL PRIMARY KEY,               
+    name VARCHAR(100) NOT NULL,       
+    department VARCHAR(50),            
+    salary DECIMAL(10, 2),            
+    email VARCHAR(100) UNIQUE         
+);
+`);
+           await this.executeQuery(`
+            CREATE TABLE project (
+            project_id SERIAL PRIMARY KEY,            
+            project_name VARCHAR(100) NOT NULL,     
+            emp_id INT,                                
+            FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
+);
+            `);
+            // Monday
             // await this.executeQuery(`
             //     CREATE TABLE lectures (
             //         lecture_id SERIAL PRIMARY KEY,
@@ -87,6 +104,8 @@ class Database {
             //             `);
             // console.log('student table created or already exists');
 
+
+            // Wednesday
             // create an employees table
             // await this.executeQuery(`
             //     DO $$
@@ -123,7 +142,7 @@ class Database {
             //         ;
 
                 
-            // console.log('employee table data inserted successfully Tiff😎😌');
+            // console.log('employee table data inserted successfully Tiff');
 
             // create other tables as needed
             console.log('Database schema initialized successfully');
