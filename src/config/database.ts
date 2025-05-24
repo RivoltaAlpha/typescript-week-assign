@@ -53,6 +53,48 @@ class Database {
     async initializeTables(): Promise<void> {
         // console.log('here')
         try {
+//             await this.executeQuery(`
+//                 CREATE TABLE employee (
+//     emp_id SERIAL PRIMARY KEY,               
+//     name VARCHAR(100) NOT NULL,       
+//     department VARCHAR(50),            
+//     salary DECIMAL(10, 2),            
+//     email VARCHAR(100) UNIQUE         
+// );
+// `);
+// console.log("employee table created or already exists");
+//            await this.executeQuery(`
+//             CREATE TABLE project (
+//             project_id SERIAL PRIMARY KEY,            
+//             project_name VARCHAR(100) NOT NULL,     
+//             emp_id INT,                                
+//             FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
+// );
+//             `);
+//             console.log("project table created or already exists");
+        //temporary table for testing
+        // await this.executeQuery(`
+        //     CREATE TEMPORARY TABLE temp_employee (
+        //         emp_id SERIAL PRIMARY KEY,
+        //         name VARCHAR(100) NOT NULL,
+        //         email VARCHAR(100) UNIQUE,
+        //         salary DECIMAL(10, 2))
+        //     `);
+        //     console.log("temp_employee table created or already exists");
+        await this.executeQuery(`
+            CREATE TABLE lecturer AS TABLE lectures WITH NO DATA;`);
+            console.log('lecturer table created😊');
+        //     await this.executeQuery(`
+        //         CREATE TABLE lectures (
+        //             lecture_id SERIAL PRIMARY KEY,
+        //             first_name VARCHAR(50),
+        //             last_name VARCHAR(50),
+        //             email VARCHAR(100) UNIQUE,
+        //             department VARCHAR(100));
+        //             `);
+            
+        //         console.log('lecture table created or already exists');
+          
             await this.executeQuery(`
                 CREATE TABLE employee (
     emp_id SERIAL PRIMARY KEY,               
@@ -141,58 +183,56 @@ class Database {
             //         `)
             //         ;
 
-                
-            // console.log('employee table data inserted successfully Tiff');
+                // Friday
+//             // Library Tables
+//             await this.executeQuery(`
+//                 CREATE TABLE users (
+//                 user_id SERIAL PRIMARY KEY,
+//                 name VARCHAR(100),
+//                 role VARCHAR(20) CHECK (role IN ('member', 'librarian')),
+//                 email VARCHAR(100) UNIQUE,
+//                 password VARCHAR(100)
+//             );
 
-            // Library Tables
-            await this.executeQuery(`
-                CREATE TABLE users (
-                user_id SERIAL PRIMARY KEY,
-                name VARCHAR(100),
-                role VARCHAR(20) CHECK (role IN ('member', 'librarian')),
-                email VARCHAR(100) UNIQUE,
-                password VARCHAR(100)
-            );
+//             CREATE TABLE library_items (
+//                 item_id SERIAL PRIMARY KEY,
+//                 title VARCHAR(200),
+//                 year INT,
+//                 type VARCHAR(20) CHECK (type IN ('book', 'dvd', 'ebook'))
+//             );
 
-            CREATE TABLE library_items (
-                item_id SERIAL PRIMARY KEY,
-                title VARCHAR(200),
-                year INT,
-                type VARCHAR(20) CHECK (type IN ('book', 'dvd', 'ebook'))
-            );
+//             CREATE TABLE books (
+//                 book_id INT PRIMARY KEY REFERENCES library_items(item_id),
+//                 author VARCHAR(100),
+//                 isbn VARCHAR(20)
+//             );
 
-            CREATE TABLE books (
-                book_id INT PRIMARY KEY REFERENCES library_items(item_id),
-                author VARCHAR(100),
-                isbn VARCHAR(20)
-            );
+//             CREATE TABLE dvds (
+//                 dvd_id INT PRIMARY KEY REFERENCES library_items(item_id),
+//                 director VARCHAR(100)
+//             );
 
-            CREATE TABLE dvds (
-                dvd_id INT PRIMARY KEY REFERENCES library_items(item_id),
-                director VARCHAR(100)
-            );
+//             CREATE TABLE ebooks (
+//                 ebook_id INT PRIMARY KEY REFERENCES library_items(item_id),
+//                 file_url VARCHAR(200)
+//             );
 
-            CREATE TABLE ebooks (
-                ebook_id INT PRIMARY KEY REFERENCES library_items(item_id),
-                file_url VARCHAR(200)
-            );
+//             CREATE TABLE borrow_records (
+//                 borrow_id SERIAL PRIMARY KEY,
+//                 user_id INT REFERENCES users(user_id),
+//                 item_id INT REFERENCES library_items(item_id),
+//                 borrow_date DATE,
+//                 due_date DATE,
+//                 return_date DATE
+//             );
 
-            CREATE TABLE borrow_records (
-                borrow_id SERIAL PRIMARY KEY,
-                user_id INT REFERENCES users(user_id),
-                item_id INT REFERENCES library_items(item_id),
-                borrow_date DATE,
-                due_date DATE,
-                return_date DATE
-            );
-
-            CREATE TABLE fines (
-                fine_id SERIAL PRIMARY KEY,
-                borrow_id INT REFERENCES borrow_records(borrow_id),
-                amount NUMERIC(10,2),
-                paid BOOLEAN DEFAULT FALSE
-            );
-                `)
+//             CREATE TABLE fines (
+//                 fine_id SERIAL PRIMARY KEY,
+//                 borrow_id INT REFERENCES borrow_records(borrow_id),
+//                 amount NUMERIC(10,2),
+//                 paid BOOLEAN DEFAULT FALSE
+//             );
+//                 `)
 
             console.log('Database schema initialized successfully');
         } catch (err) {

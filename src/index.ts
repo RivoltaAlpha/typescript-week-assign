@@ -1,8 +1,8 @@
 import { Monday } from './examples/monday';
 import { Library } from './examples/Scenario';
-import { Thursday } from './examples/thursday';
 import { Tuesday } from './examples/tuestday';
 import { Wednesday } from './examples/wednesday';
+import { thursday } from './examples/thursday';
 
 (async () => {
     try {
@@ -11,7 +11,6 @@ import { Wednesday } from './examples/wednesday';
         // Wednesday();
          Library();
         // Thursday()
-
 
         console.log('All operations completed successfully');
     } catch (error) {
