@@ -26,7 +26,7 @@ const transactions = async (query: string, variables: any[] = []) => {
 
 export const Wednesday = async () => {
         // 1. Create tables if it doesn't exist
-    // await initializeTables();
+    await initializeTables();
 
     // SELECT FROM WHERE
         // subQuery("SELECT  *  FROM TyEmployees WHERE department IN (SELECT department FROM TyEmployees WHERE department= 'IT');")
@@ -35,12 +35,12 @@ export const Wednesday = async () => {
     // subQuery('SELECT  *  FROM TyEmployees WHERE salary <= (SELECT avg(salary) from TyEmployees);')
     // subQuery('SELECT  *  FROM TyEmployees WHERE department IN (SELECT department FROM TyEmployees);')
     // subQuery('SELECT  *  FROM TyEmployees WHERE department NOT IN (SELECT department FROM Departments);')
-    subQuery(`
-    SELECT department, salary
-    FROM TyEmployees
-    WHERE department IN ('IT', 'Sales', 'Networking', 'Staff')
-    ORDER BY department ASC, salary DESC;
-`)
+//     subQuery(`
+//     SELECT department, salary
+//     FROM TyEmployees
+//     WHERE department IN ('IT', 'Sales', 'Networking', 'Staff')
+//     ORDER BY department ASC, salary DESC;
+// `)
    
 //    // Multiple
 //     subQuery('SELECT empid , name FROM TyEmployees WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = TyEmployees.department);')
