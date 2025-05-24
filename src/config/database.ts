@@ -53,33 +53,47 @@ class Database {
     async initializeTables(): Promise<void> {
         // console.log('here')
         try {
-            await this.executeQuery(`
-                CREATE TABLE employee (
-    emp_id SERIAL PRIMARY KEY,               
-    name VARCHAR(100) NOT NULL,       
-    department VARCHAR(50),            
-    salary DECIMAL(10, 2),            
-    email VARCHAR(100) UNIQUE         
-);
-`);
-           await this.executeQuery(`
-            CREATE TABLE project (
-            project_id SERIAL PRIMARY KEY,            
-            project_name VARCHAR(100) NOT NULL,     
-            emp_id INT,                                
-            FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
-);
-            `);
-    
-            // await this.executeQuery(`
-            //     CREATE TABLE lectures (
-            //         lecture_id SERIAL PRIMARY KEY,
-            //         first_name VARCHAR(50),
-            //         last_name VARCHAR(50),
-            //         email VARCHAR(100) UNIQUE,
-            //         department VARCHAR(100));
-            //         `);
-            //     console.log('lecture table created or already exists');
+//             await this.executeQuery(`
+//                 CREATE TABLE employee (
+//     emp_id SERIAL PRIMARY KEY,               
+//     name VARCHAR(100) NOT NULL,       
+//     department VARCHAR(50),            
+//     salary DECIMAL(10, 2),            
+//     email VARCHAR(100) UNIQUE         
+// );
+// `);
+// console.log("employee table created or already exists");
+//            await this.executeQuery(`
+//             CREATE TABLE project (
+//             project_id SERIAL PRIMARY KEY,            
+//             project_name VARCHAR(100) NOT NULL,     
+//             emp_id INT,                                
+//             FOREIGN KEY (emp_id) REFERENCES employee(emp_id) 
+// );
+//             `);
+//             console.log("project table created or already exists");
+        //temporary table for testing
+        // await this.executeQuery(`
+        //     CREATE TEMPORARY TABLE temp_employee (
+        //         emp_id SERIAL PRIMARY KEY,
+        //         name VARCHAR(100) NOT NULL,
+        //         email VARCHAR(100) UNIQUE,
+        //         salary DECIMAL(10, 2))
+        //     `);
+        //     console.log("temp_employee table created or already exists");
+        await this.executeQuery(`
+            CREATE TABLE lecturer AS TABLE lectures WITH NO DATA;`);
+            console.log('lecturer table created😊');
+        //     await this.executeQuery(`
+        //         CREATE TABLE lectures (
+        //             lecture_id SERIAL PRIMARY KEY,
+        //             first_name VARCHAR(50),
+        //             last_name VARCHAR(50),
+        //             email VARCHAR(100) UNIQUE,
+        //             department VARCHAR(100));
+        //             `);
+            
+        //         console.log('lecture table created or already exists');
                 
             // await this.executeQuery(`
             //         CREATE TABLE courses (

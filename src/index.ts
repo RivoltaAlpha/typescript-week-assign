@@ -1,12 +1,14 @@
 import { Monday } from './examples/monday';
 import { Tuesday } from './examples/tuestday';
 import { Wednesday } from './examples/wednesday';
+import { thursday } from './examples/thursday';
 
 (async () => {
     try {
         // Monday()
         // Tuesday()
-        Wednesday();
+        // Wednesday();
+        thursday()
 
         console.log('All operations completed successfully');
     } catch (error) {
