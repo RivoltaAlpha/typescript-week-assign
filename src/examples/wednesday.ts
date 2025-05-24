@@ -118,60 +118,8 @@ const deleteEmployee = async (id: number): Promise<void> => {
 };
 
 export const Wednesday = async () => {
-//first excersice- modifty table
-const employees: TEmployee[] = [
-	{
-		name: "mark",
-		department: "sales",
-		salary: 85000,
-		email: "marka@gmail.com",
-	},
-	{ name: "tyla", department: "HR", salary: 80000, email: "tyla@gmail.com" },
-	{
-		name: "collins",
-		department: "marketing",
-		salary: 90000,
-		email: "collins@gmail.com",
-	},
-	{ name: "brian", department: "IT", salary: 95000, email: "brian@gmail.com" },
-	{
-		name: "dennis",
-		department: "SCRUM MASTER",
-		salary: 980000,
-		email: "deno@gmail.com",
-	},
-];
-const projects: TProject[] = [
-	{ project_name: "Website Redesign", emp_id: 5 },
-	{ project_name: "Website Redesign", emp_id: 2 },
-	{ project_name: "Website Redesign", emp_id: 3},
-	{ project_name: "Website Redesign", emp_id: 4 },
-];
-	// insertMultipleEmployee(employees);
-	// insertMultipleProjects( projects);
-
-	//read
-	queryemployees();
-	// queryProjects();
-
-	//update
-	// updateEmployee(15, "John");
-	//delete
-	// deleteEmployee(16);
-
-
-    // Create tables if it doesn't exist
+        // 1. Create tables if it doesn't exist
     // await initializeTables();
-
-//     SELECT FROM WHERE
-//     subQuery('SELECT  *  FROM Employee WHERE department = (SELECT department FROM Departments WHERE deptid=1);')
-//     subQuery('SELECT  *  FROM Employee WHERE salary < (SELECT avg(salary) from Employee)')
-//     subQuery('SELECT  *  FROM Employee WHERE salary >=(SELECT avg(salary) from Employee);')
-//     subQuery('SELECT  *  FROM Employee WHERE department IN (SELECT department FROM Departments);')
-//     subQuery('SELECT  *  FROM Employee WHERE department NOT IN (SELECT department FROM Departments);')
-   
-//    Multiple
-//     subQuery('SELECT empid , name FROM Employee WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = Employee.department);')
 
     // SELECT FROM WHERE
     // subQuery("SELECT  *  FROM TyEmployees WHERE department IN (SELECT department FROM TyEmployees WHERE department= 'IT');")
@@ -180,7 +128,12 @@ const projects: TProject[] = [
     // subQuery('SELECT  *  FROM TyEmployees WHERE salary <= (SELECT avg(salary) from TyEmployees);')
     // subQuery('SELECT  *  FROM TyEmployees WHERE department IN (SELECT department FROM TyEmployees);')
     // subQuery('SELECT  *  FROM TyEmployees WHERE department NOT IN (SELECT department FROM Departments);')
-    // subQuery(`SELECT department, salary FROM TyEmployees WHERE department IN ('IT', 'Sales', 'Networking', 'Staff') ORDER BY department ASC, salary DESC;`)
+    subQuery(`
+    SELECT department, salary
+    FROM TyEmployees
+    WHERE department IN ('IT', 'Sales', 'Networking', 'Staff')
+    ORDER BY department ASC, salary DESC;
+`)
    
 //    // Multiple
 //     subQuery('SELECT empid , name FROM TyEmployees WHERE EXISTS (SELECT 1 FROM Departments WHERE Departments.department = TyEmployees.department);')
